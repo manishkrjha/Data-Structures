@@ -1,0 +1,67 @@
+#include <iostream>
+
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* next;
+};
+
+class Stack{
+private:
+    Node* head;
+public:
+    Stack(){
+        head = NULL;
+    }
+
+    ~Stack(){}
+
+    void push(int val);
+    void pop();
+    void top();
+    bool isEmpty();
+};
+
+void Stack::push(int val){
+    Node* temp = new Node();
+    temp->data = val;
+    temp->next = head;
+    head = temp;
+}
+
+void Stack::pop(){
+    if(head==NULL){
+        cout << "Stack is already Empty\n";
+        return;
+    }
+
+    Node* curr = head;
+    head = curr->next;
+
+    delete curr;
+}
+
+void Stack::top(){
+    if(head==NULL){
+        cout << "Stack is Empty\n";
+        return;
+    }
+
+    cout << head->data << "\n";
+}
+
+bool Stack::isEmpty(){
+    if(head==NULL){
+        return true;
+    }
+
+    return false;
+}
+
+int main()
+{
+    //Create a Stack object and implement menthods.
+    return 0;
+}
