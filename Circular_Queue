@@ -1,0 +1,68 @@
+#include <iostream>
+#define MAX 99999
+using namespace std;
+
+int ar[MAX];
+
+class Queue{
+private:
+    int head;
+    int tail;
+public:
+    Queue(){
+        head = -1;
+        tail = -1;
+    }
+    
+    ~Queue(){}
+    
+    void Enqueue(int val){
+        if((tail+1)%MAX>=head){
+            cout << "Queue overflow\n";
+            return;
+        }
+        
+        if(head==tail && head==-1){
+            head++;
+        }
+        
+        tail = ((tail+1)%MAX);
+        ar[tail] = val;
+    }
+    
+    void dequeue(){
+        if(head==tail && head==-1){
+            cout << "Queue is already empty\n";
+            return;
+        }
+        
+        if(head==tail){
+            head=-1;
+            tail=-1;
+            return;
+        }
+        
+        head = (head+1)%MAX;
+    }
+    
+    bool isEmpty(){
+        if(head==tail & head==-1){
+            return true;
+        }
+        
+        return false;
+    }
+    
+    int peek(){
+        if(head==-1){
+            cout << "Empty Queue\n";
+            return -1;
+        }
+    }
+};
+
+int main()
+{
+    
+    return 0;
+}
