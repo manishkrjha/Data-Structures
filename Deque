@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+
+const int n = 99999;
+int ar[n];
+
+class Deque{
+private:
+    int top;
+    int rear;
+public:
+    Deque(){
+        top = -1;
+        rear = -1;
+    }
+
+    ~Deque(){}
+
+    void insertFirst(int val);
+    void insertLast(int val);
+    void removeFirst();
+    void removeLast();
+    bool isEmpty();
+    bool isFull();
+};
+
+bool Deque::isEmpty(){
+    if(top==rear && top==-1){
+        return true;
+    }
+
+    return false;
+}
+
+bool Deque::isFull(){
+    if(((top-1+n)%n) == rear){
+        return true;
+    }
+
+    if((rear+1)%n==top){
+        return true;
+    }
+
+    return false;
+}
+
+void Deque::insertFirst(int val){
+    if(isFull()){
+        cout << "Queue is Full\n";
+        return;
+    }
+
+    if(isEmpty()){
+        top = 0;
+        rear = 0;
+    }else{
+        top = (top-1+n)%n;
+    }
+
+    ar[top] = val;
+}
+
+void Deque::insertLast(int val){
+    if(isFull()){
+        cout << "Queue is Full\n";
+        return;
+    }
+
+    if(isEmpty()){
+        top = 0;
+        rear = 0;
+    }else{
+        rear = (rear+1)%n;
+    }
+
+    ar[rear] = val;
+}
+
+void Deque::removeFirst(){
+    if(isEmpty()){
+        cout << "Queue is already Empty\n";
+        return;
+    }
+
+    if(top==rear){
+        top=-1;
+        rear=-1;
+        return;
+    }
+
+    top = (top+1)%n;
+}
+
+void Deque::removeLast(){
+    if(isEmpty()){
+        cout << "Queue is already empty\n";
+        return;
+    }
+
+    if(top==rear){
+        top=-1;
+        rear=-1;
+        return;
+    }
+
+    rear = (rear-1+n)%n;
+}
+
+int main()
+{
+    
+    return 0;
+}
