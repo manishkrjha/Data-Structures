@@ -1,0 +1,226 @@
+#include <iostream>
+
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* next;
+};
+
+class LinkedList{
+private:
+    Node* head;
+    int noe;
+public:
+    LinkedList(){
+        head = NULL;
+        noe=0;
+    }
+
+    ~LinkedList(){}
+
+    void insertFirst(int val);
+    void insertLast(int val);
+    void insertNth(int val, int n);
+    void removeFirst();
+    void removeLast();
+    void removeNth(int n);
+    int getFirstElement();
+    int getLastElement();
+    int getNthElement(int n);
+    void reverseLinkedList();
+    void printList();
+};
+
+void LinkedList::printList(){
+    if(head==NULL){
+        cout << "List is Empty\n";
+        return;
+    }
+
+    Node* itr =head;
+    while(itr!=NULL){
+        cout << itr->data << " ";
+        itr = itr->next;
+    }
+
+    cout << "\n";
+}
+
+void LinkedList::insertFirst(int val){
+    Node* temp = new Node();
+    temp->data = val;
+    temp->next = head;
+    head = temp;
+    noe++;
+}
+
+void LinkedList::insertLast(int val){
+    Node* temp = new Node();
+    temp->data = val;
+    temp->next = NULL;
+    noe++;
+
+    if(head==NULL){
+        head = temp;
+        return;
+    }
+
+    Node* itr = head;
+    while(itr->next!=NULL){
+        itr = itr->next;
+    }
+
+    itr->next = temp;
+}
+
+void LinkedList::insertNth(int val, int n){
+    if(n==1){
+        insertFirst(val);
+        return;
+    }
+
+    if(n==(noe+1)){
+        insertLast(val);
+        return;
+    }
+
+    if(n>(noe+1)){
+        cout << "This position doesn't exist in list\n";
+        return;
+    }
+
+    int curpos = 1;
+    Node* temp = new Node();
+    temp->data = val;
+
+    Node* itr = head;
+    bool flag = false;
+
+    while(!flag){
+        if((curpos+1)==n){
+            temp->next = itr->next;
+            itr->next = temp;
+            flag = true;
+            break;
+        }
+        itr = itr->next;
+        curpos+=1;
+    }
+
+    noe++;
+}
+
+void LinkedList::removeFirst(){
+    if(head==NULL){
+        cout << "List is empty\n";
+        return;
+    }
+
+    Node* temp = head;
+    head = head->next;
+    delete temp;
+    noe--;
+}
+
+void LinkedList::removeLast(){
+    if(head==NULL){
+        cout << "List is empty\n";
+        return;
+    }
+
+    Node* curr = head;
+    Node* itr = curr->next;
+    while(itr->next!=NULL){
+        curr = curr->next;
+        itr = curr->next;
+    }
+
+    curr->next = NULL;
+    delete itr;
+    noe--;
+}
+
+void LinkedList::removeNth(int n){
+    if(head==NULL){
+        cout << "Empty list\n";
+        return;
+    }
+
+    if(n==1){
+        removeFirst();
+        return;
+    }
+
+    if(n==noe){
+        removeLast();
+        return;
+    }
+
+    Node* prev = head;
+    Node* curr = prev->next;
+    int ec = 2;
+    bool flag = false;
+
+    while(!flag){
+        if(ec==n){
+            prev->next = curr->next;
+            delete curr;
+            flag = true;
+            break;
+        }
+        prev = curr;
+        curr = curr->next;
+        ec++;
+    }
+}
+
+void LinkedList::reverseLinkedList(){
+    if(head==NULL){
+        cout << "List is empty\n";
+        return;
+    }
+
+    Node* curr = head;
+    Node* prev = NULL;
+    Node* next;
+
+    while(curr!=NULL){
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    head = prev;
+}
+
+int LinkedList::getFirstElement(){
+    if(head==NULL){
+        cout << "List is Empty: ";
+        return -1;
+    }
+
+    return head->data;
+}
+
+int LinkedList::getLastElement(){
+    if(head==NULL){
+        cout << "List is Empty: ";
+        return -1;
+    }
+
+    Node* itr = head;
+    while(itr->next!=NULL){
+        itr = itr->next;
+    }
+
+    return itr->data;
+}
+
+int main()
+{
+    //Make list object here
+    return 0;
+}
