@@ -1,0 +1,133 @@
+#include <iostream>
+
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* next;
+};
+
+class LL{
+private:
+    Node* head;
+public:
+    LL(){
+        head = NULL;
+    }
+
+    void insertFirst(int data);
+    void insertLast(int data);
+    void removeFirst();
+    void removeLast();
+    void printList();
+};
+
+void LL::insertFirst(int data){
+    Node* temp = new Node();
+    temp->data = data;
+
+    if(head==NULL){
+        temp->next = temp;
+        head = temp;
+        return;
+    }
+    Node* itr = head;
+    while(itr->next!=head){
+        itr = itr->next;
+    }
+    temp->next = head;
+    head = temp;
+    itr->next = head;
+}
+
+void LL::insertLast(int data){
+    Node* temp = new Node();
+    temp->data = data;
+
+    if(head==NULL){
+        temp->next = temp;
+        head = temp;
+        return;
+    }
+
+    Node* itr = head;
+    while(itr->next!=head){
+        itr = itr->next;
+    }
+
+    itr->next = temp;
+    temp->next = head;
+}
+
+void LL::removeFirst(){
+    if(head==NULL){
+        return;
+    }
+
+    Node* temp = head;
+
+    if(head->next==head){
+        head=NULL;
+        delete temp;
+        return;
+    }
+
+    Node* itr = head;
+
+    while(itr->next!=head){
+        itr = itr->next;
+    }
+
+    itr->next = temp->next;
+    delete temp;
+}
+
+void LL::removeLast(){
+    if(head==NULL){
+        return;
+    }
+
+
+    if(head->next==head){
+        Node* temp = head;
+        head = NULL;
+        delete temp;
+        return;
+    }
+
+    Node* itr = head;
+    Node* next = head->next;
+
+    while(next->next!=head){
+        itr = itr->next;
+        next = itr->next;
+    }
+
+    itr->next = head;
+    delete next;
+}
+
+void LL::printList(){
+    if(head==NULL){
+        cout << "List is Empty\n";
+        return;
+    }
+
+    Node* itr=head;
+    cout << itr->data << " ";
+    itr = itr->next;
+
+    while(itr!=head){
+        cout << itr->data << " ";
+        itr = itr->next;
+    }
+
+    cout << "\n";
+}
+
+int main()
+{
+
+     return 0;
+}
