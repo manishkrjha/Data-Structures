@@ -1,0 +1,148 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+class DLL{
+private:
+    Node* head;
+public:
+    DLL(){
+        head = NULL;
+    }
+    
+    ~DLL(){}
+    
+    void insertFirst(int data);
+    void insertLast(int data);
+    void removeFirst();
+    void removeLast();
+    void insertNth(int data, int n);
+    void removeNth(int data, int n);
+    void printList();
+    void reverseList();
+};
+
+void DLL::printList(){
+    if(head == NULL){
+        cout << "List is empty\n";
+        return;
+    }
+
+    Node* itr = head;
+    while(itr!=NULL){
+        cout << itr->data << " ";
+        itr = itr->next;
+    }
+
+    cout << "\n";
+}
+
+void DLL::insertFirst(int data){
+    Node* temp = new Node();
+    temp->data = data;
+    temp->prev = NULL;
+    temp->next = head;
+
+    if(head!=NULL){
+        head->prev = temp;
+    }
+    head = temp;
+}
+
+void DLL::insertLast(int data){
+    Node* temp = new Node();
+    temp->data = data;
+    temp->next = NULL;
+
+    if(head==NULL){
+        head = temp;
+        temp->prev = NULL;
+        return;
+    }
+
+    Node* itr = head;
+
+    while(itr->next!=NULL){
+        itr = itr->next;
+    }
+
+    itr->next = temp;
+    temp->prev = itr;
+}
+
+void DLL::removeFirst(){
+    if(head==NULL){
+        cout << "List is empty\n";
+        return;
+    }
+    
+    if(head->next==NULL){
+        Node* temp = head;
+        head = NULL;
+        delete temp;
+        return;
+    }
+    
+    Node* curr = head;
+    Node* next = head->next;
+    next->prev = NULL;
+    head = next;
+    delete curr;
+}
+
+void DLL::removeLast(){
+    if(head==NULL){
+        cout << "List is empty\n";
+        return;
+    }
+    
+    if(head->next==NULL){
+        Node* temp = head;
+        head = NULL;
+        delete temp;
+        return;
+    }
+    
+    Node* itr = head;
+    while(itr->next!=NULL){
+        itr = itr->next;
+    }
+    
+    Node* temp = itr->prev;
+    temp->next = NULL;
+    delete itr;
+}
+
+void DLL::reverseList(){
+    if(head==NULL){
+        cout << "List is empty\n";
+        return;
+    }
+    
+    if(head->next == NULL){
+        return;
+    }
+    
+    Node* itr = head;
+    
+    while(itr->next!=NULL){
+        Node* temp = itr;
+        itr = itr->next;
+        swap(temp->prev, temp->next);
+    }
+    
+    swap(itr->prev, itr->next);
+    head = itr;
+}
+
+int main()
+{
+    //Make doubly linkedlist here
+}
